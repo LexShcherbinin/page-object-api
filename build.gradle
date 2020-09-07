@@ -64,7 +64,7 @@ publishing {
             pom {
                 name = project.name
                 description = 'Project to ease pain of test automation'
-                url = 'https://github.com/LexShcherbinin/Calculator'
+                url = 'https://github.com/LexShcherbinin/page-object-api'
                 inceptionYear = '2020'
 
                 licenses {
@@ -84,9 +84,9 @@ publishing {
                 }
 
                 scm {
-                    url = 'https://github.com/LexShcherbinin/Calculator'
-                    connection = 'scm:https://github.com/LexShcherbinin/Calculator.git'
-                    developerConnection = 'scm:https://github.com/LexShcherbinin/Calculator.git'
+                    url = 'https://github.com/LexShcherbinin/page-object-api'
+                    connection = 'scm:https://github.com/LexShcherbinin/page-object-api.git'
+                    developerConnection = 'scm:https://github.com/LexShcherbinin/page-object-api.git'
                 }
             }
         }
