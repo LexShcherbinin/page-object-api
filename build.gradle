@@ -1,0 +1,26 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.lexshcherbinin'
+version '1.0.0'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.junit.jupiter:junit-jupiter-api:${jUpiterVersion}"
+
+    implementation "io.rest-assured:rest-assured:${restAssuredVersion}"
+    implementation "io.rest-assured:json-path:${restAssuredVersion}"
+    implementation "io.rest-assured:xml-path:${restAssuredVersion}"
+
+    implementation "org.awaitility:awaitility:${awaitilityVersion}"
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
