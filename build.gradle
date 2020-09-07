@@ -1,14 +1,124 @@
+import java.time.Duration
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
 plugins {
-    id 'java'
+    id 'de.marcphilipp.nexus-publish' version '0.4.0'
+    id 'io.codearte.nexus-staging' version '0.21.1'
+    id 'com.diffplug.gradle.spotless' version '3.26.1'
+
+    id 'groovy'
+    id 'idea'
 }
 
 group 'com.github.lexshcherbinin'
 version '1.0.0'
 
-sourceCompatibility = 11
+sourceCompatibility = 13
+
+apply plugin: 'de.marcphilipp.nexus-publish'
+apply plugin: 'com.diffplug.gradle.spotless'
+apply plugin: 'signing'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+apply plugin: 'jacoco'
+
+jacoco.toolVersion = '0.8.5'
+
+nexusStaging {
+    numberOfRetries = 500
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+nexusPublishing {
+    Duration duration = Duration.ofMinutes(5)
+    connectTimeout = duration
+    clientTimeout = duration
+
+    repositories {
+        sonatype {
+            username = "${nexusUsername}"
+            password = "${nexusPassword}"
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            group = project.group
+            artifactId = project.name
+            version = project.version
+
+            from components.java
+
+            pom {
+                name = project.name
+                description = 'Project to ease pain of test automation'
+                url = 'https://github.com/LexShcherbinin/page-object-api'
+                inceptionYear = '2020'
+
+                licenses {
+                    license {
+                        name = 'GNU General Public License v3.0'
+                        url = 'https://www.gnu.org/licenses/gpl-3.0.en.html'
+                        distribution = 'repo'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'LexShcherbinin'
+                        name = 'Alexandr Shcherbinin'
+                        email = 'lexshcherbinin@gmail.com'
+                    }
+                }
+
+                scm {
+                    url = 'https://github.com/LexShcherbinin/page-object-api'
+                    connection = 'scm:https://github.com/LexShcherbinin/page-object-api.git'
+                    developerConnection = 'scm:https://github.com/LexShcherbinin/page-object-api.git'
+                }
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
 
 repositories {
     mavenCentral()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.destination file("${buildDir}/jacocoHtml")
+    }
+}
+
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 1.0
+            }
+        }
+    }
 }
 
 dependencies {
