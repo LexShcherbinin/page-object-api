@@ -8,7 +8,7 @@ buildscript {
 
 plugins {
     id 'de.marcphilipp.nexus-publish' version '0.4.0'
-    id 'io.codearte.nexus-staging' version '0.21.1'
+    id 'io.codearte.nexus-staging' version '0.30.0'
     id 'com.diffplug.gradle.spotless' version '3.26.1'
 
     id 'groovy'
@@ -16,7 +16,7 @@ plugins {
 }
 
 group 'com.github.lexshcherbinin'
-version '1.0.0'
+version '1.0.4'
 
 sourceCompatibility = 13
 
