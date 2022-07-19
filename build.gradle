@@ -16,7 +16,7 @@ plugins {
 }
 
 group 'com.github.lexshcherbinin'
-version '1.0.4'
+version '1.0.5'
 
 sourceCompatibility = 13
 
@@ -129,6 +129,10 @@ dependencies {
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
 
     implementation "org.awaitility:awaitility:${awaitilityVersion}"
+}
+
+configurations {
+    compile.exclude group: "commons-codec:commons-codec:1.11"
 }
 
 tasks.withType(JavaCompile) {
