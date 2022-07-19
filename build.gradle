@@ -129,10 +129,10 @@ dependencies {
     implementation "io.rest-assured:xml-path:${restAssuredVersion}"
 
     implementation "org.awaitility:awaitility:${awaitilityVersion}"
-}
 
-configurations {
-    compile.exclude group: "commons-codec:commons-codec:1.11"
+    configurations.all {
+        exclude group: "commons-codec", module: "commons-codec"
+    }
 }
 
 tasks.withType(JavaCompile) {
